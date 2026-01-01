@@ -9,36 +9,52 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const projects = [
   {
-    title: 'E-Commerce Dashboard',
-    description: 'A comprehensive admin dashboard for managing products, orders, and analytics. Built with React and Tailwind.',
-    tech: ['React', 'Tailwind', 'Recharts', 'Node.js'],
-    github: '#',
-    live: '#',
-    image: 'bg-gradient-to-br from-blue-500/20 to-purple-500/20', // Placeholder
+    title: 'React Assets Generator',
+    description: 'Production-ready React Assets Code Generator - Type-safe asset imports for React projects. Published on NPM with 2 stars.',
+    tech: ['TypeScript', 'Node.js', 'CLI', 'NPM'],
+    github: 'https://github.com/mukarrammahmoud/react-assets-generator',
+    live: 'https://www.npmjs.com/package/react-assets-gen',
+    image: 'bg-gradient-to-br from-blue-500/20 to-purple-500/20',
   },
   {
-    title: 'Task Management App',
-    description: 'A collaborative task manager with real-time updates using Supabase. Features drag-and-drop kanban board.',
-    tech: ['React', 'Supabase', 'DnD Kit', 'TypeScript'],
-    github: '#',
-    live: '#',
-    image: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20', // Placeholder
+    title: 'E-Commerce Platform',
+    description: 'Full-featured e-commerce app with Firebase authentication, real-time cart management, and secure payment integration.',
+    tech: ['Flutter', 'Firebase', 'Authentication', 'Dart'],
+    github: 'https://github.com/mukarrammahmoud/ecommerce_app',
+    live: 'https://github.com/mukarrammahmoud/ecommerce_app',
+    image: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
   },
   {
-    title: 'Fitness Tracker Mobile',
-    description: 'Cross-platform mobile app for tracking workouts and nutrition. Built with Flutter and Firebase.',
-    tech: ['Flutter', 'Firebase', 'Riverpod'],
-    github: '#',
-    live: '#',
-    image: 'bg-gradient-to-br from-orange-500/20 to-red-500/20', // Placeholder
+    title: 'WhatsApp Clone',
+    description: 'A fully functional WhatsApp clone with real-time messaging, built with Flutter. Features authentic UI/UX design.',
+    tech: ['Flutter', 'Firebase', 'Real-time DB', 'Material UI'],
+    github: 'https://github.com/mukarrammahmoud/whatsapp',
+    live: 'https://github.com/mukarrammahmoud/whatsapp',
+    image: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
   },
   {
-    title: 'AI Content Generator',
-    description: 'SaaS application that uses OpenAI API to generate marketing copy. Built with Next.js and FastAPI.',
-    tech: ['Next.js', 'FastAPI', 'OpenAI', 'Stripe'],
-    github: '#',
-    live: '#',
-    image: 'bg-gradient-to-br from-indigo-500/20 to-cyan-500/20', // Placeholder
+    title: 'News App',
+    description: 'News application built with Flutter and Hive for local storage. Clean architecture with offline-first approach.',
+    tech: ['Flutter', 'Hive', 'REST API', 'Offline Storage'],
+    github: 'https://github.com/mukarrammahmoud/news-app',
+    live: 'https://github.com/mukarrammahmoud/news-app',
+    image: 'bg-gradient-to-br from-indigo-500/20 to-cyan-500/20',
+  },
+  {
+    title: 'Course Management System',
+    description: 'Simple project to add, view and register students into courses. Built with Django for backend management.',
+    tech: ['Django', 'Python', 'SQLite', 'Bootstrap'],
+    github: 'https://github.com/mukarrammahmoud/course_web_by-django',
+    live: 'https://github.com/mukarrammahmoud/course_web_by-django',
+    image: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
+  },
+  {
+    title: 'University Management System',
+    description: 'Comprehensive university system built with C# and SQL Server for managing students, courses, and academic records.',
+    tech: ['C#', 'SQL Server', '.NET', 'Windows Forms'],
+    github: 'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
+    live: 'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
+    image: 'bg-gradient-to-br from-yellow-500/20 to-orange-500/20',
   },
 ];
 

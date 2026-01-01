@@ -6,7 +6,9 @@ const Footer: React.FC = () => {
     <footer className="bg-muted/30 py-12 border-t border-border">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left">
-          <h3 className="text-xl font-bold mb-2">Mukarram Mahmoud</h3>
+          <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent tracking-tight">
+            Mukarram Mahmoud
+          </h3>
           <p className="text-muted-foreground text-sm">
             Building digital experiences with code and creativity.
           </p>

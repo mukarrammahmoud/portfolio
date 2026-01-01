@@ -40,11 +40,13 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div 
-            className="flex items-center gap-2 font-bold text-xl cursor-pointer"
+            className="flex items-center gap-2 font-bold text-xl cursor-pointer group"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <Code2 className="w-8 h-8 text-primary" />
-            <span>Mukarram Mahmoud</span>
+            <Code2 className="w-8 h-8 text-primary group-hover:rotate-12 transition-transform duration-300" />
+            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent tracking-tight hover:tracking-wide transition-all duration-300">
+              Mukarram Mahmoud
+            </span>
           </div>
 
           {/* Desktop Menu */}

@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
     <section ref={container} className="min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-24 pt-20 max-w-7xl mx-auto">
       <div className="max-w-4xl">
         <h2 className="hero-text-reveal text-primary font-medium text-base sm:text-lg md:text-xl mb-3 sm:mb-4 tracking-wide">
-          Hello, I'm a Full-Stack Developer
+          Hello, I'm <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent font-bold">Mukarram Mahmoud</span>
         </h2>
         <h1 className="hero-text-reveal text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 sm:mb-6 leading-tight">
           Building digital <br />
