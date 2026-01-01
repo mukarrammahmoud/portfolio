@@ -12,6 +12,9 @@
     "check": "prettier --write . && eslint --fix",
     "start": "node .output/server/index.mjs"
   },
+  "server": {
+    "port": 3000
+  },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@sentry/tanstackstart-react": "^10.22.0",

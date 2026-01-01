@@ -77,11 +77,11 @@ const Projects: React.FC = () => {
         </div>
 
         {/* Horizontal Scroll Container */}
-        <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory hide-scrollbar -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-24 lg:px-24">
+        <div className="flex overflow-x-auto gap-4 sm:gap-6 pb-8 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-12 md:px-12 lg:-mx-24 lg:px-24">
           {projects.map((project, index) => (
             <div
               key={index}
-              className="project-card min-w-[85vw] md:min-w-[450px] snap-center bg-card border border-border rounded-2xl overflow-hidden flex flex-col group hover:border-primary/50 transition-colors duration-300"
+              className="project-card min-w-[90vw] sm:min-w-[400px] md:min-w-[450px] snap-center bg-card border border-border rounded-2xl overflow-hidden flex flex-col group hover:border-primary/50 transition-colors duration-300"
             >
               {/* Image Placeholder */}
               <div className={`h-48 ${project.image} relative overflow-hidden`}>

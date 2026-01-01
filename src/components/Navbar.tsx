@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Code2 } from 'lucide-react';
-import { Link } from '@tanstack/react-router';
+import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -44,11 +44,11 @@ const Navbar: React.FC = () => {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <Code2 className="w-8 h-8 text-primary" />
-            <span>DevPortfolio</span>
+            <span>Mukarram Mahmoud</span>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-4 lg:gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.name}
@@ -58,6 +58,7 @@ const Navbar: React.FC = () => {
                 {link.name}
               </button>
             ))}
+            <ThemeToggle />
             <button
               onClick={() => scrollToSection('#contact')}
               className="px-5 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
@@ -88,6 +89,10 @@ const Navbar: React.FC = () => {
               {link.name}
             </button>
           ))}
+          <div className="flex items-center justify-between pt-2 border-t border-border mt-2">
+            <span className="text-sm text-muted-foreground">Theme</span>
+            <ThemeToggle />
+          </div>
           <button
             onClick={() => scrollToSection('#contact')}
             className="mt-2 px-5 py-3 bg-primary text-primary-foreground rounded-lg text-center font-medium hover:opacity-90 transition-opacity"

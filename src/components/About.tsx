@@ -60,7 +60,7 @@ const About: React.FC = () => {
              {/* Placeholder for profile image - using a gradient/pattern for now */}
              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 group-hover:scale-105 transition-transform duration-700"></div>
              <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/50 font-mono text-sm">
-               [Profile Image Placeholder]
+              <img src="/mukarram.jpg" alt="Mukarram" className="w-full h-full object-cover" />
              </div>
           </div>
           {/* Decorative elements */}
