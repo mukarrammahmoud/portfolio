@@ -10,23 +10,23 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const experienceData = [
   {
     type: 'work',
-    role: 'Senior Frontend Engineer',
-    company: 'Tech Solutions Inc.',
-    period: '2023 - Present',
-    description: 'Leading the frontend team in building scalable web applications. Implemented a new design system and improved site performance by 40%.',
+    role: 'Mid junior Frontend Engineer',
+    company: 'Sofa for Digital Solutions',
+    period: '2024 - Present',
+    description: 'Building scalable web applications. Implemented a new design system and improved site performance .',
   },
   {
     type: 'work',
-    role: 'Full Stack Developer',
-    company: 'Digital Innovations',
-    period: '2021 - 2023',
-    description: 'Developed and maintained multiple client projects using React and Django. Built RESTful APIs and integrated third-party services.',
+    role: 'Mobile Developer',
+    company: 'Freelancer',
+    period: '2022 - 2024',
+    description: 'Building scalable mobile applications By using Flutter.',
   },
   {
     type: 'education',
     role: 'B.Sc. in Computer Science',
-    company: 'University of Technology',
-    period: '2017 - 2021',
+    company: 'Azal University',
+    period: '2021 - 2024',
     description: 'Focused on software engineering and algorithms. Graduated with honors.',
   },
 ];
