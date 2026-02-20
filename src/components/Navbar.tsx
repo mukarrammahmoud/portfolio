@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
+import Logo from './Logo';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -43,9 +44,9 @@ const Navbar: React.FC = () => {
             className="flex items-center gap-2 font-bold text-xl cursor-pointer group"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <Code2 className="w-8 h-8 text-primary group-hover:rotate-12 transition-transform duration-300" />
+            <Logo size={40} className="group-hover:scale-110 transition-transform duration-300" />
             <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent tracking-tight hover:tracking-wide transition-all duration-300">
-              Mukarram Mahmoud
+              Mukarram
             </span>
           </div>
 
