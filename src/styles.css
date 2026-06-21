@@ -155,4 +155,18 @@ code {
   .animate-blob {
     animation: blob 7s infinite;
   }
+
+  .split-word {
+    perspective: 400px;
+  }
+
+  .split-char {
+    transform-origin: bottom center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-overlay {
+    display: none !important;
+  }
 }

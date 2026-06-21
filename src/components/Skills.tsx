@@ -1,11 +1,8 @@
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SectionWrapper from './SectionWrapper';
-import { Code, Smartphone, Server, Wrench } from 'lucide-react';
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+import { useRef } from 'react'
+import { Code, Smartphone, Server, Wrench } from 'lucide-react'
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
+import SectionWrapper from './SectionWrapper'
+import SectionHeading from './SectionHeading'
 
 const skillsData = [
   {
@@ -28,36 +25,64 @@ const skillsData = [
     icon: <Wrench className="w-6 h-6" />,
     skills: ['Git', 'Docker', 'Supabase', 'Firebase', 'Figma'],
   },
-];
+]
 
-const Skills: React.FC = () => {
-  const container = useRef<HTMLDivElement>(null);
+const Skills = () => {
+  const container = useRef<HTMLDivElement>(null)
 
   useGSAP(
-    () => {
-      gsap.from('.skill-card', {
-        scrollTrigger: {
-          trigger: container.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
+    (_, contextSafe) => {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduced) return
+
+      ScrollTrigger.batch('.skill-card', {
+        start: 'top 88%',
+        once: true,
+        onEnter: (batch) => {
+          gsap.fromTo(
+            batch,
+            { y: 60, opacity: 0, rotateX: -12 },
+            {
+              y: 0,
+              opacity: 1,
+              rotateX: 0,
+              duration: 0.8,
+              stagger: 0.12,
+              ease: 'back.out(1.2)',
+              overwrite: true,
+            },
+          )
         },
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power2.out',
-      });
+      })
+
+      if (!contextSafe) return
+
+      const onTagClick = contextSafe((e: Event) => {
+        const tag = e.currentTarget as HTMLElement
+        gsap.fromTo(
+          tag,
+          { scale: 0.85 },
+          { scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)' },
+        )
+      })
+
+      container.current?.querySelectorAll('.skill-tag').forEach((tag) => {
+        tag.addEventListener('click', onTagClick)
+      })
+
+      return () => {
+        container.current?.querySelectorAll('.skill-tag').forEach((tag) => {
+          tag.removeEventListener('click', onTagClick)
+        })
+      }
     },
-    { scope: container }
-  );
+    { scope: container },
+  )
 
   return (
     <SectionWrapper id="skills" className="bg-muted/20">
       <div ref={container}>
-        <div className="mb-12">
-          <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-4">My Arsenal</h2>
-          <h3 className="text-3xl md:text-4xl font-bold">Skills & Technologies</h3>
-        </div>
+        <SectionHeading label="My Arsenal" title="Skills & Technologies" />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillsData.map((category, index) => (
@@ -71,12 +96,13 @@ const Skills: React.FC = () => {
               <h4 className="text-xl font-bold mb-4">{category.category}</h4>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, idx) => (
-                  <span
+                  <button
                     key={idx}
-                    className="px-3 py-1 bg-muted text-muted-foreground text-sm rounded-full border border-border/50"
+                    type="button"
+                    className="skill-tag px-3 py-1 bg-muted text-muted-foreground text-sm rounded-full border border-border/50 hover:border-primary/40 hover:text-primary transition-colors cursor-pointer"
                   >
                     {skill}
-                  </span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -84,7 +110,7 @@ const Skills: React.FC = () => {
         </div>
       </div>
     </SectionWrapper>
-  );
-};
+  )
+}
 
-export default Skills;
+export default Skills
