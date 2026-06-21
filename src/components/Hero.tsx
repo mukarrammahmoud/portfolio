@@ -1,5 +1,5 @@
+import { ArrowRight, Mail } from 'lucide-react'
 import { useRef } from 'react'
-import { ArrowRight, Mail, ChevronDown } from 'lucide-react'
 import { gsap, useGSAP } from '../lib/gsap'
 import { splitIntoChars, splitIntoWords } from '../lib/textSplit'
 
@@ -10,7 +10,9 @@ const Hero = () => {
 
   useGSAP(
     (_, contextSafe) => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
       if (reduced) return
 
       const headline = headlineRef.current
@@ -21,14 +23,45 @@ const Hero = () => {
       gsap.set(headlineWords, { yPercent: 120, rotate: 3 })
       gsap.set(sublineChars, { opacity: 0, y: 20 })
 
-      const tl = gsap.timeline({ delay: 0.15, defaults: { ease: 'power4.out' } })
+      const tl = gsap.timeline({
+        delay: 0.15,
+        defaults: { ease: 'power4.out' },
+      })
 
       tl.from('.hero-greeting', { y: 30, opacity: 0, duration: 0.8 })
-        .to(headlineWords, { yPercent: 0, rotate: 0, duration: 1, stagger: 0.08 }, '-=0.4')
-        .to(sublineChars, { opacity: 1, y: 0, duration: 0.5, stagger: 0.02, ease: 'back.out(1.4)' }, '-=0.5')
+        .to(
+          headlineWords,
+          { yPercent: 0, rotate: 0, duration: 1, stagger: 0.08 },
+          '-=0.4',
+        )
+        .to(
+          sublineChars,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.02,
+            ease: 'back.out(1.4)',
+          },
+          '-=0.5',
+        )
         .from('.hero-desc', { y: 40, opacity: 0, duration: 0.9 }, '-=0.3')
-        .from('.hero-btn', { y: 24, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'back.out(1.5)' }, '-=0.5')
-        .from('.hero-scroll-hint', { opacity: 0, y: -10, duration: 0.6 }, '-=0.2')
+        .from(
+          '.hero-btn',
+          {
+            y: 24,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: 'back.out(1.5)',
+          },
+          '-=0.5',
+        )
+        .from(
+          '.hero-scroll-hint',
+          { opacity: 0, y: -10, duration: 0.6 },
+          '-=0.2',
+        )
 
       gsap.to('.hero-orb-1', {
         x: 30,
@@ -86,10 +119,6 @@ const Hero = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const scrollToAbout = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   return (
     <section
       ref={container}
@@ -101,9 +130,7 @@ const Hero = () => {
       <div className="max-w-4xl">
         <h2 className="hero-greeting text-primary font-medium text-base sm:text-lg md:text-xl mb-3 sm:mb-4 tracking-wide">
           Hello, I&apos;m{' '}
-          <span className="text-foreground font-bold">
-            Mukarram Mahmoud
-          </span>
+          <span className="text-foreground font-bold">Mukarram Mahmoud</span>
         </h2>
 
         <h1
@@ -120,8 +147,8 @@ const Hero = () => {
         </span>
 
         <p className="hero-desc text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mb-8 sm:mb-10 leading-relaxed">
-          I craft minimal, fast, and scalable applications using React, Flutter, and Python.
-          Focused on solving real problems with clean code.
+          I craft minimal, fast, and scalable applications using React, Flutter,
+          and Python. Focused on solving real problems with clean code.
         </p>
 
         <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
