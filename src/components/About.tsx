@@ -1,75 +1,99 @@
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SectionWrapper from './SectionWrapper';
+import { useRef } from 'react'
+import { gsap, useGSAP } from '../lib/gsap'
+import SectionWrapper from './SectionWrapper'
+import SectionHeading from './SectionHeading'
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-const About: React.FC = () => {
-  const container = useRef<HTMLDivElement>(null);
+const About = () => {
+  const container = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
-      gsap.from('.about-text', {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduced) return
+
+      gsap.from('.about-paragraph', {
         scrollTrigger: {
           trigger: container.current,
-          start: 'top 80%',
+          start: 'top 75%',
           toggleActions: 'play none none reverse',
         },
-        y: 50,
+        y: 40,
         opacity: 0,
-        duration: 1,
-        stagger: 0.2,
+        duration: 0.9,
+        stagger: 0.15,
         ease: 'power3.out',
-      });
+      })
+
+      gsap.from(imageRef.current, {
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        scale: 0.85,
+        opacity: 0,
+        rotate: -4,
+        duration: 1.1,
+        ease: 'power3.out',
+      })
+
+      gsap.to(imageRef.current, {
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        },
+        y: -40,
+        ease: 'none',
+      })
     },
-    { scope: container }
-  );
+    { scope: container },
+  )
 
   return (
     <SectionWrapper id="about" className="min-h-[80vh] flex items-center">
-      <div ref={container} className="grid md:grid-cols-2 gap-12 items-center">
+      <div ref={container} className="grid md:grid-cols-2 gap-12 items-center w-full">
         <div>
-          <h2 className="about-text text-sm font-bold text-primary tracking-widest uppercase mb-4">About Me</h2>
-          <h3 className="about-text text-3xl md:text-4xl font-bold mb-6 leading-tight">
-            More than just code. <br />
-            <span className="text-muted-foreground">I build solutions.</span>
-          </h3>
-          <div className="space-y-6 text-lg text-muted-foreground">
-            <p className="about-text">
-              My journey started with a curiosity for how things work on the web. 
-              Over the years, I've evolved from tweaking CSS to architecting full-stack applications 
+          <SectionHeading
+            label="About Me"
+            title="More than just code. I build solutions."
+          />
+          <div className="space-y-6 text-lg text-muted-foreground -mt-6">
+            <p className="about-paragraph">
+              My journey started with a curiosity for how things work on the web.
+              Over the years, I&apos;ve evolved from tweaking CSS to architecting full-stack applications
               that serve thousands of users.
             </p>
-            <p className="about-text">
-              I don't just write code; I focus on the "why" behind every feature. 
-              Whether it's optimizing a React dashboard for performance or structuring a 
-              Django API for scalability, my goal is always the same: 
-              <span className="text-foreground font-medium"> create value through technology.</span>
+            <p className="about-paragraph">
+              I don&apos;t just write code; I focus on the &quot;why&quot; behind every feature.
+              Whether it&apos;s optimizing a React dashboard for performance or structuring a
+              Django API for scalability, my goal is always the same:{' '}
+              <span className="text-foreground font-medium">create value through technology.</span>
             </p>
-            <p className="about-text">
-              When I'm not coding, I'm exploring new tech stacks, contributing to open source, 
+            <p className="about-paragraph">
+              When I&apos;m not coding, I&apos;m exploring new tech stacks, contributing to open source,
               or refining my mobile development skills with Flutter.
             </p>
           </div>
         </div>
-        
-        <div className="relative about-text">
+
+        <div ref={imageRef} className="relative">
           <div className="aspect-square rounded-2xl overflow-hidden bg-muted relative group">
-             {/* Placeholder for profile image - using a gradient/pattern for now */}
-             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 group-hover:scale-105 transition-transform duration-700"></div>
-             <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/50 font-mono text-sm">
-              <img src="/mukarram.jpg" alt="Mukarram" className="w-full h-full object-cover" />
-             </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 group-hover:scale-105 transition-transform duration-700" />
+            <img
+              src="/mukarram.jpg"
+              alt="Mukarram"
+              className="w-full h-full object-cover"
+            />
           </div>
-          {/* Decorative elements */}
-          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
-          <div className="absolute -top-6 -left-6 w-32 h-32 bg-secondary/20 rounded-full blur-2xl"></div>
+          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -top-6 -left-6 w-32 h-32 bg-secondary/20 rounded-full blur-2xl pointer-events-none" />
         </div>
       </div>
     </SectionWrapper>
-  );
-};
+  )
+}
 
-export default About;
+export default About

@@ -1,62 +1,124 @@
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SectionWrapper from './SectionWrapper';
-import { Send, Mail, MapPin, Phone } from 'lucide-react';
+import { useRef } from 'react'
+import { Send, Mail, MapPin, Phone } from 'lucide-react'
+import { gsap, useGSAP } from '../lib/gsap'
+import SectionWrapper from './SectionWrapper'
+import SectionHeading from './SectionHeading'
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-const Contact: React.FC = () => {
-  const container = useRef<HTMLDivElement>(null);
+const Contact = () => {
+  const container = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   useGSAP(
-    () => {
-      gsap.from('.contact-anim', {
+    (_, contextSafe) => {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduced) return
+
+      gsap.from('.contact-info-item', {
         scrollTrigger: {
           trigger: container.current,
           start: 'top 80%',
           toggleActions: 'play none none reverse',
         },
-        y: 30,
+        x: -30,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
+        duration: 0.7,
+        stagger: 0.12,
         ease: 'power2.out',
-      });
+      })
+
+      gsap.from(formRef.current, {
+        scrollTrigger: {
+          trigger: formRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+      })
+
+      if (!contextSafe) return
+
+      const onFocus = contextSafe((e: Event) => {
+        const input = e.currentTarget as HTMLElement
+        gsap.to(input, {
+          scale: 1.01,
+          duration: 0.3,
+          ease: 'power2.out',
+        })
+      })
+
+      const onBlur = contextSafe((e: Event) => {
+        const input = e.currentTarget as HTMLElement
+        gsap.to(input, {
+          scale: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        })
+      })
+
+      formRef.current?.querySelectorAll('input, textarea').forEach((field) => {
+        field.addEventListener('focus', onFocus)
+        field.addEventListener('blur', onBlur)
+      })
+
+      return () => {
+        formRef.current?.querySelectorAll('input, textarea').forEach((field) => {
+          field.removeEventListener('focus', onFocus)
+          field.removeEventListener('blur', onBlur)
+        })
+      }
     },
-    { scope: container }
-  );
+    { scope: container },
+  )
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    alert('Message sent! (This is a demo)');
-  };
+    e.preventDefault()
+    const btn = formRef.current?.querySelector('button[type="submit"]')
+    if (btn) {
+      gsap.fromTo(
+        btn,
+        { scale: 0.9 },
+        {
+          scale: 1,
+          duration: 0.6,
+          ease: 'elastic.out(1, 0.4)',
+          onComplete: () => alert('Message sent! (This is a demo)'),
+        },
+      )
+    } else {
+      alert('Message sent! (This is a demo)')
+    }
+  }
 
   return (
     <SectionWrapper id="contact" className="mb-20">
       <div ref={container} className="grid md:grid-cols-2 gap-12 lg:gap-24">
         <div>
-          <h2 className="contact-anim text-sm font-bold text-primary tracking-widest uppercase mb-4">Get in Touch</h2>
-          <h3 className="contact-anim text-3xl md:text-4xl font-bold mb-6">Let's work together</h3>
-          <p className="contact-anim text-muted-foreground text-lg mb-8">
-            I'm currently available for freelance projects and open to full-time opportunities. 
-            If you have a project that needs some creative touch, let's chat.
+          <SectionHeading label="Get in Touch" title="Let's work together" />
+          <p className="text-muted-foreground text-lg mb-8 -mt-6">
+            I&apos;m currently available for freelance projects and open to full-time opportunities.
+            If you have a project that needs some creative touch, let&apos;s chat.
           </p>
 
           <div className="space-y-6">
-            <div className="contact-anim flex items-center gap-4">
+            <div className="contact-info-item flex items-center gap-4">
               <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Email</p>
-                <a href="mailto:mukarramalmatiany@gmail.com" className="font-medium hover:text-primary transition-colors">mukarramalmatiany@gmail.com</a>
+                <a
+                  href="mailto:mukarramalmatiany@gmail.com"
+                  className="font-medium hover:text-primary transition-colors"
+                >
+                  mukarramalmatiany@gmail.com
+                </a>
               </div>
             </div>
-            
-            <div className="contact-anim flex items-center gap-4">
+
+            <div className="contact-info-item flex items-center gap-4">
               <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
                 <MapPin className="w-5 h-5" />
               </div>
@@ -66,53 +128,65 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            <div className="contact-anim flex items-center gap-4">
+            <div className="contact-info-item flex items-center gap-4">
               <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
                 <Phone className="w-5 h-5" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Phone</p>
-                <a href="tel:+967779629928" className="font-medium hover:text-primary transition-colors">+967779629928</a>
+                <a href="tel:+967779629928" className="font-medium hover:text-primary transition-colors">
+                  +967779629928
+                </a>
               </div>
             </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="contact-anim bg-card border border-border p-8 rounded-2xl shadow-sm space-y-6">
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="bg-card border border-border p-8 rounded-2xl shadow-sm space-y-6"
+        >
           <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
-            <input 
-              type="text" 
-              id="name" 
+            <label htmlFor="name" className="block text-sm font-medium mb-2">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
               className="w-full px-4 py-3 bg-muted/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
               placeholder="John Doe"
               required
             />
           </div>
-          
+
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
-            <input 
-              type="email" 
-              id="email" 
+            <label htmlFor="email" className="block text-sm font-medium mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
               className="w-full px-4 py-3 bg-muted/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
               placeholder="john@example.com"
               required
             />
           </div>
-          
+
           <div>
-            <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-            <textarea 
-              id="message" 
+            <label htmlFor="message" className="block text-sm font-medium mb-2">
+              Message
+            </label>
+            <textarea
+              id="message"
               rows={4}
               className="w-full px-4 py-3 bg-muted/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
               placeholder="Tell me about your project..."
               required
-            ></textarea>
+            />
           </div>
 
-          <button 
+          <button
             type="submit"
             className="w-full py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
           >
@@ -122,7 +196,7 @@ const Contact: React.FC = () => {
         </form>
       </div>
     </SectionWrapper>
-  );
-};
+  )
+}
 
-export default Contact;
+export default Contact

@@ -1,11 +1,8 @@
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SectionWrapper from './SectionWrapper';
-import { Briefcase, GraduationCap } from 'lucide-react';
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+import { useRef } from 'react'
+import { Briefcase, GraduationCap } from 'lucide-react'
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
+import SectionWrapper from './SectionWrapper'
+import SectionHeading from './SectionHeading'
 
 const experienceData = [
   {
@@ -13,7 +10,8 @@ const experienceData = [
     role: 'Mid junior Frontend Engineer',
     company: 'Sofa for Digital Solutions',
     period: '2024 - Present',
-    description: 'Building scalable web applications. Implemented a new design system and improved site performance .',
+    description:
+      'Building scalable web applications. Implemented a new design system and improved site performance.',
   },
   {
     type: 'work',
@@ -29,50 +27,90 @@ const experienceData = [
     period: '2021 - 2024',
     description: 'Focused on software engineering and algorithms. Graduated with honors.',
   },
-];
+]
 
-const Experience: React.FC = () => {
-  const container = useRef<HTMLDivElement>(null);
+const Experience = () => {
+  const container = useRef<HTMLDivElement>(null)
+  const lineRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
-      const items = gsap.utils.toArray('.timeline-item');
-      items.forEach((item: any) => {
-        gsap.from(item, {
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-          y: 50,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-        });
-      });
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduced) return
+
+      gsap.from(lineRef.current, {
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top 80%',
+          end: 'bottom 60%',
+          scrub: 1,
+        },
+        scaleY: 0,
+        transformOrigin: 'top center',
+        ease: 'none',
+      })
+
+      ScrollTrigger.batch('.timeline-item', {
+        start: 'top 88%',
+        once: true,
+        onEnter: (batch) => {
+          gsap.fromTo(
+            batch,
+            { x: -40, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.2,
+              ease: 'power3.out',
+              overwrite: true,
+            },
+          )
+          gsap.fromTo(
+            batch.map((el) => el.querySelector('.timeline-dot')),
+            { scale: 0 },
+            {
+              scale: 1,
+              duration: 0.5,
+              stagger: 0.2,
+              ease: 'back.out(2)',
+              overwrite: true,
+            },
+          )
+        },
+      })
     },
-    { scope: container }
-  );
+    { scope: container },
+  )
 
   return (
     <SectionWrapper id="experience">
       <div ref={container} className="max-w-4xl mx-auto">
-        <div className="mb-12 text-center">
-          <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-4">My Journey</h2>
-          <h3 className="text-3xl md:text-4xl font-bold">Experience & Education</h3>
-        </div>
+        <SectionHeading
+          label="My Journey"
+          title="Experience & Education"
+          align="center"
+          className="mx-auto"
+        />
 
-        <div className="relative border-l-2 border-border ml-4 md:ml-12 space-y-12">
+        <div className="relative ml-4 md:ml-12 space-y-12">
+          <div
+            ref={lineRef}
+            className="absolute left-0 top-0 bottom-0 w-0.5 bg-border origin-top"
+          />
+
           {experienceData.map((item, index) => (
             <div key={index} className="timeline-item relative pl-8 md:pl-12">
-              {/* Dot */}
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-primary flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
+              <div className="timeline-dot absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-primary" />
               </div>
 
-              {/* Icon */}
               <div className="absolute -left-12 md:-left-16 top-0 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-muted text-muted-foreground">
-                {item.type === 'work' ? <Briefcase className="w-5 h-5" /> : <GraduationCap className="w-5 h-5" />}
+                {item.type === 'work' ? (
+                  <Briefcase className="w-5 h-5" />
+                ) : (
+                  <GraduationCap className="w-5 h-5" />
+                )}
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
@@ -81,17 +119,15 @@ const Experience: React.FC = () => {
                   {item.period}
                 </span>
               </div>
-              
+
               <h5 className="text-lg font-medium text-primary mb-4">{item.company}</h5>
-              <p className="text-muted-foreground leading-relaxed">
-                {item.description}
-              </p>
+              <p className="text-muted-foreground leading-relaxed">{item.description}</p>
             </div>
           ))}
         </div>
       </div>
     </SectionWrapper>
-  );
-};
+  )
+}
 
-export default Experience;
+export default Experience
