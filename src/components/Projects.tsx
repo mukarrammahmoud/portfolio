@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Github, ExternalLink, Package } from 'lucide-react'
+import { Github, ExternalLink, Package, ArrowUpRight } from 'lucide-react'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
 import SectionWrapper from './SectionWrapper'
 import SectionHeading from './SectionHeading'
@@ -12,7 +12,9 @@ const projects = [
     tech: ['TypeScript', 'Node.js', 'CLI', 'NPM'],
     github: 'https://github.com/mukarrammahmoud/react-assets-generator',
     live: 'https://www.npmjs.com/package/react-assets-gen',
-    image: 'bg-gradient-to-br from-blue-500/20 to-purple-500/20',
+    accent: 'from-blue-500 via-indigo-500 to-violet-600',
+    glow: 'bg-blue-500/25',
+    featured: true,
   },
   {
     title: 'E-Commerce Platform',
@@ -21,7 +23,8 @@ const projects = [
     tech: ['Flutter', 'Firebase', 'Authentication', 'Dart'],
     github: 'https://github.com/mukarrammahmoud/ecommerce_app',
     live: 'https://github.com/mukarrammahmoud/ecommerce_app',
-    image: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
+    accent: 'from-emerald-500 via-green-500 to-teal-600',
+    glow: 'bg-emerald-500/25',
   },
   {
     title: 'WhatsApp Clone',
@@ -30,7 +33,8 @@ const projects = [
     tech: ['Flutter', 'Firebase', 'Real-time DB', 'Material UI'],
     github: 'https://github.com/mukarrammahmoud/whatsapp',
     live: 'https://github.com/mukarrammahmoud/whatsapp',
-    image: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
+    accent: 'from-orange-500 via-amber-500 to-red-500',
+    glow: 'bg-orange-500/25',
   },
   {
     title: 'News App',
@@ -39,7 +43,8 @@ const projects = [
     tech: ['Flutter', 'Hive', 'REST API', 'Offline Storage'],
     github: 'https://github.com/mukarrammahmoud/news-app',
     live: 'https://github.com/mukarrammahmoud/news-app',
-    image: 'bg-gradient-to-br from-indigo-500/20 to-cyan-500/20',
+    accent: 'from-cyan-500 via-sky-500 to-indigo-500',
+    glow: 'bg-cyan-500/25',
   },
   {
     title: 'Course Management System',
@@ -48,7 +53,8 @@ const projects = [
     tech: ['Django', 'Python', 'SQLite', 'Bootstrap'],
     github: 'https://github.com/mukarrammahmoud/course_web_by-django',
     live: 'https://github.com/mukarrammahmoud/course_web_by-django',
-    image: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
+    accent: 'from-fuchsia-500 via-purple-500 to-pink-500',
+    glow: 'bg-fuchsia-500/25',
   },
   {
     title: 'University Management System',
@@ -57,17 +63,18 @@ const projects = [
     tech: ['C#', 'SQL Server', '.NET', 'Windows Forms'],
     github: 'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
     live: 'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
-    image: 'bg-gradient-to-br from-yellow-500/20 to-orange-500/20',
+    accent: 'from-yellow-500 via-amber-500 to-orange-600',
+    glow: 'bg-amber-500/25',
   },
 ]
 
 const projectIcons = [
-  <Package key="pkg" className="w-8 h-8 text-white drop-shadow-lg" />,
-  <svg key="cart" className="w-8 h-8 text-white drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
-  <svg key="chat" className="w-8 h-8 text-white drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>,
-  <svg key="news" className="w-8 h-8 text-white drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" /></svg>,
-  <svg key="book" className="w-8 h-8 text-white drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
-  <svg key="uni" className="w-8 h-8 text-white drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>,
+  <Package key="pkg" className="w-7 h-7" />,
+  <svg key="cart" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
+  <svg key="chat" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>,
+  <svg key="news" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" /></svg>,
+  <svg key="book" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
+  <svg key="uni" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>,
 ]
 
 const Projects = () => {
@@ -86,13 +93,13 @@ const Projects = () => {
         onEnter: (batch) => {
           gsap.fromTo(
             batch,
-            { y: 80, opacity: 0, scale: 0.95 },
+            { y: 70, opacity: 0, rotateX: 14 },
             {
               y: 0,
               opacity: 1,
-              scale: 1,
-              duration: 0.85,
-              stagger: 0.12,
+              rotateX: 0,
+              duration: 0.9,
+              stagger: 0.1,
               ease: 'power3.out',
               overwrite: true,
             },
@@ -102,23 +109,99 @@ const Projects = () => {
 
       if (!contextSafe) return
 
-      const onCardClick = contextSafe((e: Event) => {
-        const card = (e.currentTarget as HTMLElement).closest('.project-card')
-        if (!card) return
+      const cleanups: (() => void)[] = []
+
+      container.current?.querySelectorAll('.project-card').forEach((card) => {
+        const inner = card.querySelector('.project-card-inner')
+        const spotlight = card.querySelector('.project-card-spotlight')
+        const visual = card.querySelector('.project-card-visual')
+        if (!inner || !spotlight) return
+
+        gsap.set(spotlight, { opacity: 0 })
+
+        const onMove = contextSafe((e: Event) => {
+          const mouse = e as MouseEvent
+          const rect = card.getBoundingClientRect()
+          const x = mouse.clientX - rect.left
+          const y = mouse.clientY - rect.top
+          const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -7
+          const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 7
+
+          gsap.to(inner, {
+            rotateX,
+            rotateY,
+            y: -6,
+            duration: 0.45,
+            ease: 'power2.out',
+            overwrite: true,
+          })
+          gsap.to(spotlight, {
+            x: x - 128,
+            y: y - 128,
+            opacity: 0.9,
+            duration: 0.35,
+            ease: 'power2.out',
+            overwrite: true,
+          })
+          if (visual) {
+            gsap.to(visual, {
+              scale: 1.04,
+              duration: 0.5,
+              ease: 'power2.out',
+              overwrite: true,
+            })
+          }
+        })
+
+        const onLeave = contextSafe(() => {
+          gsap.to(inner, {
+            rotateX: 0,
+            rotateY: 0,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            overwrite: true,
+          })
+          gsap.to(spotlight, {
+            opacity: 0,
+            duration: 0.4,
+            overwrite: true,
+          })
+          if (visual) {
+            gsap.to(visual, {
+              scale: 1,
+              duration: 0.6,
+              ease: 'power3.out',
+              overwrite: true,
+            })
+          }
+        })
+
+        card.addEventListener('mousemove', onMove)
+        card.addEventListener('mouseleave', onLeave)
+        cleanups.push(() => {
+          card.removeEventListener('mousemove', onMove)
+          card.removeEventListener('mouseleave', onLeave)
+        })
+      })
+
+      const onLinkClick = contextSafe((e: Event) => {
+        const link = e.currentTarget as HTMLElement
         gsap.fromTo(
-          card,
-          { scale: 0.97 },
-          { scale: 1, duration: 0.6, ease: 'elastic.out(1, 0.35)' },
+          link,
+          { scale: 0.9 },
+          { scale: 1, duration: 0.45, ease: 'elastic.out(1, 0.45)' },
         )
       })
 
-      container.current?.querySelectorAll('.project-card').forEach((card) => {
-        card.addEventListener('click', onCardClick)
+      container.current?.querySelectorAll('.project-link').forEach((link) => {
+        link.addEventListener('click', onLinkClick)
       })
 
       return () => {
-        container.current?.querySelectorAll('.project-card').forEach((card) => {
-          card.removeEventListener('click', onCardClick)
+        cleanups.forEach((fn) => fn())
+        container.current?.querySelectorAll('.project-link').forEach((link) => {
+          link.removeEventListener('click', onLinkClick)
         })
       }
     },
@@ -127,7 +210,7 @@ const Projects = () => {
 
   return (
     <SectionWrapper id="projects" className="min-h-screen">
-      <div ref={container}>
+      <div ref={container} className="[perspective:1200px]">
         <SectionHeading
           label="Portfolio"
           title="Featured Projects"
@@ -139,72 +222,106 @@ const Projects = () => {
           Showing all {projects.length} projects
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
           {projects.map((project, index) => (
-            <div
-              key={index}
-              className="project-card bg-card border border-border rounded-2xl overflow-hidden flex flex-col group hover:border-primary/50 transition-colors duration-300 cursor-pointer"
+            <article
+              key={project.title}
+              className={`project-card group relative ${
+                project.featured ? 'md:col-span-2' : ''
+              }`}
             >
-              <div className={`h-56 ${project.image} relative overflow-hidden`}>
-                <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/10 to-black/40 group-hover:from-black/20 group-hover:to-black/30 transition-all duration-500" />
+              <div className="project-card-inner relative h-full [transform-style:preserve-3d] will-change-transform">
+                <div
+                  className={`project-card-spotlight pointer-events-none absolute w-64 h-64 rounded-full blur-3xl opacity-0 z-0 ${project.glow}`}
+                />
 
-                <div className="absolute top-6 right-6 w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-lg">
-                  {projectIcons[index]}
-                </div>
+                <div
+                  className={`relative h-full overflow-hidden rounded-3xl border border-border/80 bg-card/60 backdrop-blur-sm transition-colors duration-500 group-hover:border-primary/40 ${
+                    project.featured ? 'md:grid md:grid-cols-[1.1fr_1fr] md:min-h-[280px]' : ''
+                  }`}
+                >
+                  <div
+                    className={`project-card-visual relative overflow-hidden ${
+                      project.featured ? 'min-h-[200px] md:min-h-full' : 'h-44 sm:h-48'
+                    }`}
+                  >
+                    <div
+                      className={`absolute inset-0 bg-linear-to-br ${project.accent} opacity-90`}
+                    />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.25),transparent_50%)]" />
+                    <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_40%,rgba(0,0,0,0.35))]" />
 
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-card/80 to-transparent backdrop-blur-sm" />
+                    <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-size-[24px_24px]" />
 
-                <div className="absolute bottom-4 left-4 w-10 h-10 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center text-white font-bold text-sm">
-                  {String(index + 1).padStart(2, '0')}
+                    <span className="absolute -bottom-4 -right-2 text-[7rem] sm:text-[8rem] font-black leading-none text-white/10 select-none pointer-events-none">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+
+                    <div className="absolute top-5 left-5 flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg">
+                        {projectIcons[index]}
+                      </div>
+                      {project.featured && (
+                        <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-white/15 text-white/90 border border-white/20 backdrop-blur-sm">
+                          Featured
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="absolute bottom-5 right-5 w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                      <ArrowUpRight className="w-5 h-5" />
+                    </div>
+                  </div>
+
+                  <div className="relative p-6 sm:p-7 flex flex-col">
+                    <div className="flex items-start justify-between gap-4 mb-3">
+                      <h4 className="text-xl sm:text-2xl font-bold leading-tight group-hover:text-primary transition-colors duration-300">
+                        {project.title}
+                      </h4>
+                      <span className="shrink-0 text-xs font-mono text-muted-foreground/60 mt-1">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+
+                    <p className="text-muted-foreground text-sm sm:text-[0.95rem] leading-relaxed mb-5 line-clamp-3">
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="text-xs font-medium px-3 py-1 rounded-full bg-muted/80 text-muted-foreground border border-border/60 group-hover:border-primary/20 group-hover:text-foreground transition-colors duration-300"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-auto flex items-center gap-3">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-link flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl border border-border bg-background/80 hover:bg-muted/60 transition-colors"
+                      >
+                        <Github className="w-4 h-4" />
+                        Code
+                      </a>
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-link flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        View Project
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className="p-6 flex flex-col flex-grow">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-1">
-                  {project.title}
-                </h4>
-                <p className="text-muted-foreground text-sm mb-4 flex-grow line-clamp-3 leading-relaxed">
-                  {project.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {project.tech.slice(0, 3).map((t, i) => (
-                    <span
-                      key={i}
-                      className="text-xs font-medium px-3 py-1.5 bg-primary/10 text-primary rounded-full border border-primary/20"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                  {project.tech.length > 3 && (
-                    <span className="text-xs font-medium px-3 py-1.5 bg-muted text-muted-foreground rounded-full">
-                      +{project.tech.length - 3}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-3 mt-auto pt-4 border-t border-border">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="project-link flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-secondary hover:bg-secondary/80 rounded-lg transition-colors"
-                  >
-                    <Github className="w-4 h-4" /> Code
-                  </a>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="project-link flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 rounded-lg transition-opacity"
-                  >
-                    <ExternalLink className="w-4 h-4" /> View
-                  </a>
-                </div>
-              </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
