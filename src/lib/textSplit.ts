@@ -1,9 +1,9 @@
-export function splitIntoWords(element: HTMLElement): HTMLElement[] {
-  const text = element.textContent ?? ''
+export function splitIntoWords(element: HTMLElement): Array<HTMLElement> {
+  const text = element.textContent || ''
   element.textContent = ''
   element.setAttribute('aria-label', text)
 
-  const words: HTMLElement[] = []
+  const words: Array<HTMLElement> = []
   text.split(/(\s+)/).forEach((part) => {
     if (/^\s+$/.test(part)) {
       element.appendChild(document.createTextNode(part))
@@ -26,12 +26,12 @@ export function splitIntoWords(element: HTMLElement): HTMLElement[] {
   return words
 }
 
-export function splitIntoChars(element: HTMLElement): HTMLElement[] {
-  const text = element.textContent ?? ''
+export function splitIntoChars(element: HTMLElement): Array<HTMLElement> {
+  const text = element.textContent || ''
   element.textContent = ''
   element.setAttribute('aria-label', text)
 
-  const chars: HTMLElement[] = []
+  const chars: Array<HTMLElement> = []
   ;[...text].forEach((char) => {
     const span = document.createElement('span')
     span.className = 'split-char inline-block will-change-transform'

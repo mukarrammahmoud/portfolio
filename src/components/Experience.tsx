@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Briefcase, GraduationCap } from 'lucide-react'
-import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
+import { ScrollTrigger, gsap, useGSAP } from '../lib/gsap'
+import { useTranslation } from '../lib/i18n/I18nContext'
 import SectionWrapper from './SectionWrapper'
 import SectionHeading from './SectionHeading'
 
@@ -25,17 +26,21 @@ const experienceData = [
     role: 'B.Sc. in Computer Science',
     company: 'Azal University',
     period: '2021 - 2024',
-    description: 'Focused on software engineering and algorithms. Graduated with honors.',
+    description:
+      'Focused on software engineering and algorithms. Graduated with honors.',
   },
 ]
 
 const Experience = () => {
+  const { t, isRtl } = useTranslation()
   const container = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
       if (reduced) return
 
       gsap.from(lineRef.current, {
@@ -56,7 +61,7 @@ const Experience = () => {
         onEnter: (batch) => {
           gsap.fromTo(
             batch,
-            { x: -40, opacity: 0 },
+            { x: isRtl ? 40 : -40, opacity: 0 },
             {
               x: 0,
               opacity: 1,
@@ -80,32 +85,32 @@ const Experience = () => {
         },
       })
     },
-    { scope: container },
+    { scope: container, dependencies: [isRtl] },
   )
 
   return (
     <SectionWrapper id="experience">
       <div ref={container} className="max-w-4xl mx-auto">
         <SectionHeading
-          label="My Journey"
-          title="Experience & Education"
+          label={t('experience.label')}
+          title={t('experience.title')}
           align="center"
           className="mx-auto"
         />
 
-        <div className="relative ml-4 md:ml-12 space-y-12">
+        <div className="relative ms-4 md:ms-12 space-y-12">
           <div
             ref={lineRef}
-            className="absolute left-0 top-0 bottom-0 w-0.5 bg-border origin-top"
+            className="absolute start-0 top-0 bottom-0 w-0.5 bg-border origin-top"
           />
 
           {experienceData.map((item, index) => (
-            <div key={index} className="timeline-item relative pl-8 md:pl-12">
-              <div className="timeline-dot absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+            <div key={index} className="timeline-item relative ps-8 md:ps-12">
+              <div className="timeline-dot absolute -start-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-primary flex items-center justify-center">
                 <div className="w-2 h-2 rounded-full bg-primary" />
               </div>
 
-              <div className="absolute -left-12 md:-left-16 top-0 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-muted text-muted-foreground">
+              <div className="absolute -start-12 md:-start-16 top-0 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-muted text-muted-foreground">
                 {item.type === 'work' ? (
                   <Briefcase className="w-5 h-5" />
                 ) : (
@@ -114,14 +119,20 @@ const Experience = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                <h4 className="text-xl font-bold">{item.role}</h4>
+                <h4 className="text-xl font-bold">
+                  {t(`experience.${index}.role` as any)}
+                </h4>
                 <span className="text-sm font-medium text-muted-foreground bg-muted px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">
-                  {item.period}
+                  {t(`experience.${index}.period` as any)}
                 </span>
               </div>
 
-              <h5 className="text-lg font-medium text-primary mb-4">{item.company}</h5>
-              <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+              <h5 className="text-lg font-medium text-primary mb-4">
+                {t(`experience.${index}.company` as any)}
+              </h5>
+              <p className="text-muted-foreground leading-relaxed">
+                {t(`experience.${index}.desc` as any)}
+              </p>
             </div>
           ))}
         </div>

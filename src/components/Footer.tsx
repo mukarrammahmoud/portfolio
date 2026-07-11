@@ -1,13 +1,17 @@
 import { useRef } from 'react'
-import { Github, Linkedin, Package, Mail } from 'lucide-react'
+import { Github, Linkedin, Mail, Package } from 'lucide-react'
 import { gsap, useGSAP } from '../lib/gsap'
+import { useTranslation } from '../lib/i18n/I18nContext'
 
 const Footer = () => {
+  const { t, language } = useTranslation()
   const footerRef = useRef<HTMLElement>(null)
 
   useGSAP(
     (_, contextSafe) => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
       if (reduced) return
 
       gsap.from('.footer-content > *', {
@@ -39,24 +43,27 @@ const Footer = () => {
       })
 
       return () => {
-        footerRef.current?.querySelectorAll('.footer-social').forEach((link) => {
-          link.removeEventListener('click', onSocialClick)
-        })
+        footerRef.current
+          ?.querySelectorAll('.footer-social')
+          .forEach((link) => {
+            link.removeEventListener('click', onSocialClick)
+          })
       }
     },
     { scope: footerRef },
   )
 
   return (
-    <footer ref={footerRef} className="bg-muted/30 py-12 border-t border-border">
+    <footer
+      ref={footerRef}
+      className="bg-muted/30 py-12 border-t border-border"
+    >
       <div className="footer-content max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="text-center md:text-left">
+        <div className="text-center md:text-start">
           <h3 className="text-2xl font-bold mb-2 text-foreground tracking-tight">
-            Mukarram Mahmoud
+            {language === 'en' ? 'Mukarram Mahmoud' : 'مكرم محمود'}
           </h3>
-          <p className="text-muted-foreground text-sm">
-            Building digital experiences with code and creativity.
-          </p>
+          <p className="text-muted-foreground text-sm">{t('footer.desc')}</p>
         </div>
 
         <div className="flex items-center gap-6">
@@ -87,7 +94,7 @@ const Footer = () => {
         </div>
 
         <div className="text-sm text-muted-foreground">
-          © {new Date().getFullYear()} All rights reserved.
+          © {new Date().getFullYear()} {t('footer.copyright')}
         </div>
       </div>
     </footer>

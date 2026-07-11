@@ -10,7 +10,9 @@ const PageLoader = () => {
       const overlay = overlayRef.current
       if (!overlay) return
 
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
       if (reduced) {
         setDone(true)
         return
@@ -21,15 +23,23 @@ const PageLoader = () => {
         onComplete: () => setDone(true),
       })
 
-      tl.from('.loader-bar', { scaleX: 0, duration: 1.2, transformOrigin: 'left center' })
-        .from('.loader-char', {
-          y: 40,
-          opacity: 0,
-          rotateX: -90,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: 'back.out(2)',
-        }, '-=0.6')
+      tl.from('.loader-bar', {
+        scaleX: 0,
+        duration: 1.2,
+        transformOrigin: 'left center',
+      })
+        .from(
+          '.loader-char',
+          {
+            y: 40,
+            opacity: 0,
+            rotateX: -90,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: 'back.out(2)',
+          },
+          '-=0.6',
+        )
         .to('.loader-tagline', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
         .to('.loader-bar', { scaleX: 1, duration: 0.4 }, '+=0.3')
         .to('.loader-content', { opacity: 0, y: -20, duration: 0.4 })

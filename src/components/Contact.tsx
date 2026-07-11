@@ -1,16 +1,20 @@
 import { useRef } from 'react'
-import { Send, Mail, MapPin, Phone } from 'lucide-react'
+import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import { gsap, useGSAP } from '../lib/gsap'
+import { useTranslation } from '../lib/i18n/I18nContext'
 import SectionWrapper from './SectionWrapper'
 import SectionHeading from './SectionHeading'
 
 const Contact = () => {
+  const { t } = useTranslation()
   const container = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
   useGSAP(
     (_, contextSafe) => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
       if (reduced) return
 
       gsap.from('.contact-info-item', {
@@ -64,10 +68,12 @@ const Contact = () => {
       })
 
       return () => {
-        formRef.current?.querySelectorAll('input, textarea').forEach((field) => {
-          field.removeEventListener('focus', onFocus)
-          field.removeEventListener('blur', onBlur)
-        })
+        formRef.current
+          ?.querySelectorAll('input, textarea')
+          .forEach((field) => {
+            field.removeEventListener('focus', onFocus)
+            field.removeEventListener('blur', onBlur)
+          })
       }
     },
     { scope: container },
@@ -84,11 +90,11 @@ const Contact = () => {
           scale: 1,
           duration: 0.6,
           ease: 'elastic.out(1, 0.4)',
-          onComplete: () => alert('Message sent! (This is a demo)'),
+          onComplete: () => alert(t('contact.success')),
         },
       )
     } else {
-      alert('Message sent! (This is a demo)')
+      alert(t('contact.success'))
     }
   }
 
@@ -96,10 +102,12 @@ const Contact = () => {
     <SectionWrapper id="contact" className="mb-20">
       <div ref={container} className="grid md:grid-cols-2 gap-12 lg:gap-24">
         <div>
-          <SectionHeading label="Get in Touch" title="Let's work together" />
+          <SectionHeading
+            label={t('contact.label')}
+            title={t('contact.title')}
+          />
           <p className="text-muted-foreground text-lg mb-8 -mt-6">
-            I&apos;m currently available for freelance projects and open to full-time opportunities.
-            If you have a project that needs some creative touch, let&apos;s chat.
+            {t('contact.desc')}
           </p>
 
           <div className="space-y-6">
@@ -108,7 +116,9 @@ const Contact = () => {
                 <Mail className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Email</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('contact.email')}
+                </p>
                 <a
                   href="mailto:mukarramalmatiany@gmail.com"
                   className="font-medium hover:text-primary transition-colors"
@@ -123,8 +133,10 @@ const Contact = () => {
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Location</p>
-                <p className="font-medium">Remote / Worldwide</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('contact.location')}
+                </p>
+                <p className="font-medium">{t('contact.locationVal')}</p>
               </div>
             </div>
 
@@ -133,8 +145,13 @@ const Contact = () => {
                 <Phone className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Phone</p>
-                <a href="tel:+967779629928" className="font-medium hover:text-primary transition-colors">
+                <p className="text-sm text-muted-foreground">
+                  {t('contact.phone')}
+                </p>
+                <a
+                  href="tel:+967779629928"
+                  className="font-medium hover:text-primary transition-colors"
+                >
                   +967779629928
                 </a>
               </div>
@@ -149,48 +166,48 @@ const Contact = () => {
         >
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-2">
-              Name
+              {t('contact.nameLabel')}
             </label>
             <input
               type="text"
               id="name"
               className="w-full px-4 py-3 bg-muted/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-              placeholder="John Doe"
+              placeholder={t('contact.namePlaceholder')}
               required
             />
           </div>
 
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-2">
-              Email
+              {t('contact.emailLabel')}
             </label>
             <input
               type="email"
               id="email"
               className="w-full px-4 py-3 bg-muted/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-              placeholder="john@example.com"
+              placeholder={t('contact.emailPlaceholder')}
               required
             />
           </div>
 
           <div>
             <label htmlFor="message" className="block text-sm font-medium mb-2">
-              Message
+              {t('contact.messageLabel')}
             </label>
             <textarea
               id="message"
               rows={4}
               className="w-full px-4 py-3 bg-muted/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
-              placeholder="Tell me about your project..."
+              placeholder={t('contact.messagePlaceholder')}
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+            className="w-full py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer"
           >
-            Send Message
+            {t('contact.send')}
             <Send className="w-4 h-4" />
           </button>
         </form>

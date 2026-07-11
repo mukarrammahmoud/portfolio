@@ -1,6 +1,7 @@
 import { useRef } from 'react'
-import { Github, ExternalLink, Package, ArrowUpRight } from 'lucide-react'
-import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
+import { ArrowUpRight, ExternalLink, Github, Package } from 'lucide-react'
+import { ScrollTrigger, gsap, useGSAP } from '../lib/gsap'
+import { useTranslation } from '../lib/i18n/I18nContext'
 import SectionWrapper from './SectionWrapper'
 import SectionHeading from './SectionHeading'
 
@@ -61,7 +62,8 @@ const projects = [
     description:
       'Comprehensive university system built with C# and SQL Server for managing students, courses, and academic records.',
     tech: ['C#', 'SQL Server', '.NET', 'Windows Forms'],
-    github: 'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
+    github:
+      'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
     live: 'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
     accent: 'from-yellow-500 via-amber-500 to-orange-600',
     glow: 'bg-amber-500/25',
@@ -70,19 +72,87 @@ const projects = [
 
 const projectIcons = [
   <Package key="pkg" className="w-7 h-7" />,
-  <svg key="cart" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
-  <svg key="chat" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>,
-  <svg key="news" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" /></svg>,
-  <svg key="book" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
-  <svg key="uni" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>,
+  <svg
+    key="cart"
+    className="w-7 h-7"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.75}
+      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+    />
+  </svg>,
+  <svg
+    key="chat"
+    className="w-7 h-7"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.75}
+      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+    />
+  </svg>,
+  <svg
+    key="news"
+    className="w-7 h-7"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.75}
+      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+    />
+  </svg>,
+  <svg
+    key="book"
+    className="w-7 h-7"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.75}
+      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+    />
+  </svg>,
+  <svg
+    key="uni"
+    className="w-7 h-7"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.75}
+      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+    />
+  </svg>,
 ]
 
 const Projects = () => {
+  const { t } = useTranslation()
   const container = useRef<HTMLDivElement>(null)
 
   useGSAP(
     (_, contextSafe) => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
       if (reduced) return
 
       ScrollTrigger.batch('.project-card', {
@@ -109,7 +179,7 @@ const Projects = () => {
 
       if (!contextSafe) return
 
-      const cleanups: (() => void)[] = []
+      const cleanups: Array<() => void> = []
 
       container.current?.querySelectorAll('.project-card').forEach((card) => {
         const inner = card.querySelector('.project-card-inner')
@@ -212,14 +282,14 @@ const Projects = () => {
     <SectionWrapper id="projects" className="min-h-screen">
       <div ref={container} className="[perspective:1200px]">
         <SectionHeading
-          label="Portfolio"
-          title="Featured Projects"
-          subtitle="A showcase of my recent work across web and mobile development"
+          label={t('projects.label')}
+          title={t('projects.title')}
+          subtitle={t('projects.subtitle')}
           align="center"
           className="mx-auto"
         />
         <p className="text-sm text-primary font-semibold text-center -mt-8 mb-10">
-          Showing all {projects.length} projects
+          {t('projects.count', { count: projects.length })}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
@@ -237,12 +307,16 @@ const Projects = () => {
 
                 <div
                   className={`relative h-full overflow-hidden rounded-3xl border border-border/80 bg-card/60 backdrop-blur-sm transition-colors duration-500 group-hover:border-primary/40 ${
-                    project.featured ? 'md:grid md:grid-cols-[1.1fr_1fr] md:min-h-[280px]' : ''
+                    project.featured
+                      ? 'md:grid md:grid-cols-[1.1fr_1fr] md:min-h-[280px]'
+                      : ''
                   }`}
                 >
                   <div
                     className={`project-card-visual relative overflow-hidden ${
-                      project.featured ? 'min-h-[200px] md:min-h-full' : 'h-44 sm:h-48'
+                      project.featured
+                        ? 'min-h-[200px] md:min-h-full'
+                        : 'h-44 sm:h-48'
                     }`}
                   >
                     <div
@@ -253,30 +327,30 @@ const Projects = () => {
 
                     <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-size-[24px_24px]" />
 
-                    <span className="absolute -bottom-4 -right-2 text-[7rem] sm:text-[8rem] font-black leading-none text-white/10 select-none pointer-events-none">
+                    <span className="absolute -bottom-4 ltr:-right-2 rtl:-left-2 text-[7rem] sm:text-[8rem] font-black leading-none text-white/10 select-none pointer-events-none">
                       {String(index + 1).padStart(2, '0')}
                     </span>
 
-                    <div className="absolute top-5 left-5 flex items-center gap-3">
+                    <div className="absolute top-5 start-5 flex items-center gap-3">
                       <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg">
                         {projectIcons[index]}
                       </div>
                       {project.featured && (
                         <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-white/15 text-white/90 border border-white/20 backdrop-blur-sm">
-                          Featured
+                          {t('projects.featured')}
                         </span>
                       )}
                     </div>
 
-                    <div className="absolute bottom-5 right-5 w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                      <ArrowUpRight className="w-5 h-5" />
+                    <div className="absolute bottom-5 end-5 w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                      <ArrowUpRight className="w-5 h-5 rtl:-scale-x-100" />
                     </div>
                   </div>
 
                   <div className="relative p-6 sm:p-7 flex flex-col">
                     <div className="flex items-start justify-between gap-4 mb-3">
                       <h4 className="text-xl sm:text-2xl font-bold leading-tight group-hover:text-primary transition-colors duration-300">
-                        {project.title}
+                        {t(`project.${index}.title` as any)}
                       </h4>
                       <span className="shrink-0 text-xs font-mono text-muted-foreground/60 mt-1">
                         {String(index + 1).padStart(2, '0')}
@@ -284,16 +358,16 @@ const Projects = () => {
                     </div>
 
                     <p className="text-muted-foreground text-sm sm:text-[0.95rem] leading-relaxed mb-5 line-clamp-3">
-                      {project.description}
+                      {t(`project.${index}.desc` as any)}
                     </p>
 
                     <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tech.map((t) => (
+                      {project.tech.map((tech) => (
                         <span
-                          key={t}
+                          key={tech}
                           className="text-xs font-medium px-3 py-1 rounded-full bg-muted/80 text-muted-foreground border border-border/60 group-hover:border-primary/20 group-hover:text-foreground transition-colors duration-300"
                         >
-                          {t}
+                          {tech}
                         </span>
                       ))}
                     </div>
@@ -306,7 +380,7 @@ const Projects = () => {
                         className="project-link flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl border border-border bg-background/80 hover:bg-muted/60 transition-colors"
                       >
                         <Github className="w-4 h-4" />
-                        Code
+                        {t('projects.code')}
                       </a>
                       <a
                         href={project.live}
@@ -315,7 +389,7 @@ const Projects = () => {
                         className="project-link flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
                       >
                         <ExternalLink className="w-4 h-4" />
-                        View Project
+                        {t('projects.view')}
                       </a>
                     </div>
                   </div>

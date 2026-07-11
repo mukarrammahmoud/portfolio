@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 interface LogoProps {
-  size?: number;
-  className?: string;
+  size?: number
+  className?: string
 }
 
 const Logo: React.FC<LogoProps> = ({ size = 40, className = '' }) => {
@@ -16,7 +16,13 @@ const Logo: React.FC<LogoProps> = ({ size = 40, className = '' }) => {
       className={className}
     >
       <defs>
-        <linearGradient id="bracketGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient
+          id="bracketGradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
           <stop offset="0%" stopColor="#a855f7" />
           <stop offset="100%" stopColor="#7c3aed" />
         </linearGradient>
@@ -77,7 +83,7 @@ const Logo: React.FC<LogoProps> = ({ size = 40, className = '' }) => {
         /&gt;
       </text>
     </svg>
-  );
-};
+  )
+}
 
-export default Logo;
+export default Logo

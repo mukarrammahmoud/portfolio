@@ -1,18 +1,21 @@
-import { useState, useRef } from 'react'
-import { Menu, X } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { Menu, X, Globe } from 'lucide-react'
 import { gsap, useGSAP } from '../lib/gsap'
+import { useTranslation } from '../lib/i18n/I18nContext'
 import ThemeToggle from './ThemeToggle'
 import Logo from './Logo'
+import type { TranslationKey } from '../lib/i18n/translations'
 
 const navLinks = [
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Contact', href: '#contact' },
+  { nameKey: 'nav.about' as TranslationKey, href: '#about' },
+  { nameKey: 'nav.skills' as TranslationKey, href: '#skills' },
+  { nameKey: 'nav.projects' as TranslationKey, href: '#projects' },
+  { nameKey: 'nav.experience' as TranslationKey, href: '#experience' },
+  { nameKey: 'nav.contact' as TranslationKey, href: '#contact' },
 ]
 
 const Navbar = () => {
+  const { t, language, setLanguage, isRtl } = useTranslation()
   const navRef = useRef<HTMLElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -20,7 +23,9 @@ const Navbar = () => {
 
   useGSAP(
     (_, contextSafe) => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
 
       if (!reduced) {
         gsap.from(navRef.current, {
@@ -53,7 +58,12 @@ const Navbar = () => {
         gsap.fromTo(
           link.querySelector('.nav-underline'),
           { scaleX: 0 },
-          { scaleX: 1, duration: 0.35, ease: 'power2.out', transformOrigin: 'left center' },
+          {
+            scaleX: 1,
+            duration: 0.35,
+            ease: 'power2.out',
+            transformOrigin: isRtl ? 'right center' : 'left center',
+          },
         )
       })
 
@@ -72,7 +82,7 @@ const Navbar = () => {
         }
       }
     },
-    { scope: navRef },
+    { scope: navRef, dependencies: [isRtl] },
   )
 
   useGSAP(
@@ -87,7 +97,7 @@ const Navbar = () => {
           { height: 'auto', opacity: 1, duration: 0.45, ease: 'power3.out' },
         )
         gsap.from('.mobile-nav-link', {
-          x: -24,
+          x: isRtl ? 24 : -24,
           opacity: 0,
           duration: 0.4,
           stagger: 0.06,
@@ -96,7 +106,7 @@ const Navbar = () => {
         })
       }
     },
-    { scope: navRef, dependencies: [isOpen] },
+    { scope: navRef, dependencies: [isOpen, isRtl] },
   )
 
   const scrollToSection = (id: string) => {
@@ -106,9 +116,11 @@ const Navbar = () => {
 
   return (
     <nav
-      ref={navRef}
+      // ref={navRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+        scrolled
+          ? 'bg-background/80 backdrop-blur-md shadow-sm'
+          : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
@@ -118,42 +130,65 @@ const Navbar = () => {
             className="nav-link flex items-center gap-2 font-bold text-xl group"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <Logo size={40} className="group-hover:scale-110 transition-transform duration-300" />
+            <Logo
+              size={40}
+              className="group-hover:scale-110 transition-transform duration-300"
+            />
             <span className="text-foreground tracking-tight">
-              Mukarram
+              {t('nav.logo')}
             </span>
           </button>
 
           <div className="hidden md:flex items-center gap-4 lg:gap-6">
             {navLinks.map((link) => (
               <button
-                key={link.name}
+                key={link.nameKey}
                 type="button"
                 onClick={() => scrollToSection(link.href)}
                 className="nav-link relative text-sm font-medium hover:text-primary transition-colors pb-1"
               >
-                {link.name}
-                <span className="nav-underline absolute bottom-0 left-0 right-0 h-px bg-primary origin-left scale-x-0" />
+                {t(link.nameKey)}
+                <span className="nav-underline absolute bottom-0 left-0 right-0 h-px bg-primary origin-left rtl:origin-right scale-x-0" />
               </button>
             ))}
             <ThemeToggle />
             <button
               type="button"
+              onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
+              className="px-3.5 py-2 rounded-full bg-muted hover:bg-accent transition-all duration-300 text-xs font-bold flex items-center gap-1.5 text-foreground cursor-pointer border border-border/40 hover:border-primary/20 h-10"
+              aria-label="Toggle language"
+            >
+              <Globe className="w-4 h-4 text-foreground/75" />
+              <span>{language === 'en' ? 'العربية' : 'English'}</span>
+            </button>
+            <button
+              type="button"
               onClick={() => scrollToSection('#contact')}
               className="nav-link px-5 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
             >
-              Hire Me
+              {t('nav.hire')}
             </button>
           </div>
 
-          <button
-            type="button"
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          >
-            {isOpen ? <X /> : <Menu />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
+              className="p-2.5 rounded-full bg-muted hover:bg-accent transition-all duration-300 text-foreground cursor-pointer flex items-center justify-center w-10 h-10 border border-border/40"
+              aria-label="Toggle language"
+            >
+              <Globe className="w-4 h-4 text-foreground/75" />
+            </button>
+            <button
+              type="button"
+              className="p-2 text-foreground"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            >
+              {isOpen ? <X /> : <Menu />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -164,24 +199,20 @@ const Navbar = () => {
         >
           {navLinks.map((link) => (
             <button
-              key={link.name}
+              key={link.nameKey}
               type="button"
               onClick={() => scrollToSection(link.href)}
-              className="mobile-nav-link text-left text-lg font-medium hover:text-primary transition-colors"
+              className="mobile-nav-link text-start text-lg font-medium hover:text-primary transition-colors"
             >
-              {link.name}
+              {t(link.nameKey)}
             </button>
           ))}
-          <div className="mobile-nav-link flex items-center justify-between pt-2 border-t border-border mt-2">
-            <span className="text-sm text-muted-foreground">Theme</span>
-            <ThemeToggle />
-          </div>
           <button
             type="button"
             onClick={() => scrollToSection('#contact')}
             className="mobile-nav-link mt-2 px-5 py-3 bg-primary text-primary-foreground rounded-lg text-center font-medium hover:opacity-90 transition-opacity"
           >
-            Hire Me
+            {t('nav.hire')}
           </button>
         </div>
       )}
