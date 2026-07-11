@@ -1,38 +1,43 @@
 import { useRef } from 'react'
-import { Code, Smartphone, Server, Wrench } from 'lucide-react'
-import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
+import { Code, Server, Smartphone, Wrench } from 'lucide-react'
+import { ScrollTrigger, gsap, useGSAP } from '../lib/gsap'
+import { useTranslation } from '../lib/i18n/I18nContext'
 import SectionWrapper from './SectionWrapper'
 import SectionHeading from './SectionHeading'
+import type { TranslationKey } from '../lib/i18n/translations'
 
 const skillsData = [
   {
-    category: 'Frontend',
+    categoryKey: 'skills.frontend' as TranslationKey,
     icon: <Code className="w-6 h-6" />,
     skills: ['React', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Next.js', 'Vite'],
   },
   {
-    category: 'Mobile',
+    categoryKey: 'skills.mobile' as TranslationKey,
     icon: <Smartphone className="w-6 h-6" />,
     skills: ['Flutter', 'Dart', 'Riverpod', 'Android', 'iOS'],
   },
   {
-    category: 'Backend',
+    categoryKey: 'skills.backend' as TranslationKey,
     icon: <Server className="w-6 h-6" />,
     skills: ['Django', 'FastAPI', 'Python', 'PostgreSQL', 'Node.js'],
   },
   {
-    category: 'Tools',
+    categoryKey: 'skills.tools' as TranslationKey,
     icon: <Wrench className="w-6 h-6" />,
     skills: ['Git', 'Docker', 'Supabase', 'Firebase', 'Figma'],
   },
 ]
 
 const Skills = () => {
+  const { t } = useTranslation()
   const container = useRef<HTMLDivElement>(null)
 
   useGSAP(
     (_, contextSafe) => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const reduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
       if (reduced) return
 
       ScrollTrigger.batch('.skill-card', {
@@ -82,7 +87,7 @@ const Skills = () => {
   return (
     <SectionWrapper id="skills" className="bg-muted/20">
       <div ref={container}>
-        <SectionHeading label="My Arsenal" title="Skills & Technologies" />
+        <SectionHeading label={t('skills.label')} title={t('skills.title')} />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillsData.map((category, index) => (
@@ -93,7 +98,9 @@ const Skills = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
                 {category.icon}
               </div>
-              <h4 className="text-xl font-bold mb-4">{category.category}</h4>
+              <h4 className="text-xl font-bold mb-4">
+                {t(category.categoryKey)}
+              </h4>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, idx) => (
                   <button
