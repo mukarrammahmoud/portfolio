@@ -1,8 +1,8 @@
 import { ArrowRight, Mail } from 'lucide-react'
 import { useRef } from 'react'
 import { gsap, useGSAP } from '../lib/gsap'
-import { splitIntoChars, splitIntoWords } from '../lib/textSplit'
 import { useTranslation } from '../lib/i18n/I18nContext'
+import { splitIntoChars, splitIntoWords } from '../lib/textSplit'
 
 const Hero = () => {
   const { t, language, isRtl } = useTranslation()
@@ -20,8 +20,10 @@ const Hero = () => {
 
       const headline = headlineRef.current
       const subline = sublineRef.current
-      const headlineWords = headline ? splitIntoWords(headline) : []
-      const sublineChars = subline ? splitIntoChars(subline) : []
+      const headlineWords =
+        headline && language == 'en' ? splitIntoWords(headline) : []
+      const sublineChars =
+        subline && language == 'en' ? splitIntoChars(subline) : []
 
       gsap.set(headlineWords, { yPercent: 120, rotate: isRtl ? -3 : 3 })
       gsap.set(sublineChars, { opacity: 0, y: 20 })

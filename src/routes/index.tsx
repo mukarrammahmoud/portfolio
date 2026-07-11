@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import Hero from '../components/Hero'
 import About from '../components/About'
-import Skills from '../components/Skills'
-import Projects from '../components/Projects'
-import Experience from '../components/Experience'
 import Contact from '../components/Contact'
+import Experience from '../components/Experience'
+import Hero from '../components/Hero'
+import Projects from '../components/Projects'
+import Skills from '../components/Skills'
 import { useTranslation } from '../lib/i18n/I18nContext'
 
 export const Route = createFileRoute('/')({ component: App })
