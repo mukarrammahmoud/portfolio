@@ -106,7 +106,7 @@ const Skills = () => {
                   <button
                     key={idx}
                     type="button"
-                    className="skill-tag px-3 py-1 bg-muted text-muted-foreground text-sm rounded-full border border-border/50 hover:border-primary/40 hover:text-primary transition-colors cursor-pointer"
+                    className="skill-tag px-3 py-1 bg-muted text-muted-foreground text-sm rounded-lg border border-border/50 hover:border-primary/40 hover:text-primary transition-colors cursor-pointer"
                   >
                     {skill}
                   </button>

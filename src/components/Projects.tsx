@@ -13,8 +13,8 @@ const projects = [
     tech: ['TypeScript', 'Node.js', 'CLI', 'NPM'],
     github: 'https://github.com/mukarrammahmoud/react-assets-generator',
     live: 'https://www.npmjs.com/package/react-assets-gen',
-    accent: 'from-blue-500 via-indigo-500 to-violet-600',
-    glow: 'bg-blue-500/25',
+    accent: 'from-[#9f3328] to-[#51201b]',
+    glow: 'bg-primary/15',
     featured: true,
   },
   {
@@ -24,8 +24,8 @@ const projects = [
     tech: ['Flutter', 'Firebase', 'Authentication', 'Dart'],
     github: 'https://github.com/mukarrammahmoud/ecommerce_app',
     live: 'https://github.com/mukarrammahmoud/ecommerce_app',
-    accent: 'from-emerald-500 via-green-500 to-teal-600',
-    glow: 'bg-emerald-500/25',
+    accent: 'from-[#74716a] to-[#35332f]',
+    glow: 'bg-primary/10',
   },
   {
     title: 'WhatsApp Clone',
@@ -34,8 +34,8 @@ const projects = [
     tech: ['Flutter', 'Firebase', 'Real-time DB', 'Material UI'],
     github: 'https://github.com/mukarrammahmoud/whatsapp',
     live: 'https://github.com/mukarrammahmoud/whatsapp',
-    accent: 'from-orange-500 via-amber-500 to-red-500',
-    glow: 'bg-orange-500/25',
+    accent: 'from-[#b9a792] to-[#665a4f]',
+    glow: 'bg-primary/10',
   },
   {
     title: 'News App',
@@ -44,8 +44,8 @@ const projects = [
     tech: ['Flutter', 'Hive', 'REST API', 'Offline Storage'],
     github: 'https://github.com/mukarrammahmoud/news-app',
     live: 'https://github.com/mukarrammahmoud/news-app',
-    accent: 'from-cyan-500 via-sky-500 to-indigo-500',
-    glow: 'bg-cyan-500/25',
+    accent: 'from-[#8f9a97] to-[#4d5956]',
+    glow: 'bg-primary/10',
   },
   {
     title: 'Course Management System',
@@ -54,8 +54,8 @@ const projects = [
     tech: ['Django', 'Python', 'SQLite', 'Bootstrap'],
     github: 'https://github.com/mukarrammahmoud/course_web_by-django',
     live: 'https://github.com/mukarrammahmoud/course_web_by-django',
-    accent: 'from-fuchsia-500 via-purple-500 to-pink-500',
-    glow: 'bg-fuchsia-500/25',
+    accent: 'from-[#9c8d8a] to-[#5c4b48]',
+    glow: 'bg-primary/10',
   },
   {
     title: 'University Management System',
@@ -65,8 +65,8 @@ const projects = [
     github:
       'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
     live: 'https://github.com/mukarrammahmoud/University-System-by-C-sharp-with-sqlserver',
-    accent: 'from-yellow-500 via-amber-500 to-orange-600',
-    glow: 'bg-amber-500/25',
+    accent: 'from-[#8e8270] to-[#50483c]',
+    glow: 'bg-primary/10',
   },
 ]
 
@@ -194,13 +194,13 @@ const Projects = () => {
           const rect = card.getBoundingClientRect()
           const x = mouse.clientX - rect.left
           const y = mouse.clientY - rect.top
-          const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -7
-          const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 7
+          const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -3
+          const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 3
 
           gsap.to(inner, {
             rotateX,
             rotateY,
-            y: -6,
+            y: -4,
             duration: 0.45,
             ease: 'power2.out',
             overwrite: true,

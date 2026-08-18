@@ -112,7 +112,7 @@ const Contact = () => {
 
           <div className="space-y-6">
             <div className="contact-info-item flex items-center gap-4">
-              <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
+              <div className="w-11 h-11 bg-muted rounded-sm flex items-center justify-center text-primary border border-border">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
@@ -129,7 +129,7 @@ const Contact = () => {
             </div>
 
             <div className="contact-info-item flex items-center gap-4">
-              <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
+              <div className="w-11 h-11 bg-muted rounded-sm flex items-center justify-center text-primary border border-border">
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
@@ -141,7 +141,7 @@ const Contact = () => {
             </div>
 
             <div className="contact-info-item flex items-center gap-4">
-              <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
+              <div className="w-11 h-11 bg-muted rounded-sm flex items-center justify-center text-primary border border-border">
                 <Phone className="w-5 h-5" />
               </div>
               <div>
