@@ -122,7 +122,7 @@ const Experience = () => {
                 <h4 className="text-xl font-bold">
                   {t(`experience.${index}.role` as any)}
                 </h4>
-                <span className="text-sm font-medium text-muted-foreground bg-muted px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">
+                <span className="text-sm font-medium text-muted-foreground bg-muted px-3 py-1 rounded-sm border border-border w-fit mt-2 sm:mt-0">
                   {t(`experience.${index}.period` as any)}
                 </span>
               </div>

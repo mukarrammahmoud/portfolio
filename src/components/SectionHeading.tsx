@@ -84,14 +84,14 @@ const SectionHeading = ({
       className={`mb-12 flex flex-col ${alignClass} ${className}`}
     >
       <div className="section-label flex flex-col gap-2 mb-4">
-        <span className="text-sm font-bold text-primary tracking-widest uppercase">
+        <span className="text-xs font-semibold text-primary tracking-[0.18em] uppercase">
           {label}
         </span>
-        <span className="section-label-line block h-px w-12 bg-primary" />
+        <span className="section-label-line block h-px w-10 bg-primary" />
       </div>
       <h3
         ref={titleRef}
-        className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
+        className="text-4xl md:text-5xl lg:text-6xl leading-tight"
       >
         {title}
       </h3>

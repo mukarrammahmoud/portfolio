@@ -123,16 +123,16 @@ const Navbar = () => {
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="flex items-center justify-between h-[76px]">
           <button
             type="button"
-            className="nav-link flex items-center gap-2 font-bold text-xl group"
+            className="nav-link flex items-center gap-2 font-semibold text-lg group"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <Logo
-              size={40}
-              className="group-hover:scale-110 transition-transform duration-300"
+              size={32}
+              className="group-hover:scale-105 transition-transform duration-300"
             />
             <span className="text-foreground tracking-tight">
               {t('nav.logo')}
@@ -145,7 +145,7 @@ const Navbar = () => {
                 key={link.nameKey}
                 type="button"
                 onClick={() => scrollToSection(link.href)}
-                className="nav-link relative text-sm font-medium hover:text-primary transition-colors pb-1"
+                className="nav-link relative text-sm hover:text-primary transition-colors pb-1"
               >
                 {t(link.nameKey)}
                 <span className="nav-underline absolute bottom-0 left-0 right-0 h-px bg-primary origin-left rtl:origin-right scale-x-0" />
@@ -155,7 +155,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
-              className="px-3.5 py-2 rounded-full bg-muted hover:bg-accent transition-all duration-300 text-xs font-bold flex items-center gap-1.5 text-foreground cursor-pointer border border-border/40 hover:border-primary/20 h-10"
+              className="px-3 py-2 rounded-lg bg-transparent hover:bg-muted transition-all duration-300 text-xs font-semibold flex items-center gap-1.5 text-foreground cursor-pointer border border-border h-9"
               aria-label="Toggle language"
             >
               <Globe className="w-4 h-4 text-foreground/75" />
@@ -164,7 +164,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => scrollToSection('#contact')}
-              className="nav-link px-5 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+              className="nav-link px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:brightness-90 transition-colors"
             >
               {t('nav.hire')}
             </button>
@@ -175,7 +175,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
-              className="p-2.5 rounded-full bg-muted hover:bg-accent transition-all duration-300 text-foreground cursor-pointer flex items-center justify-center w-10 h-10 border border-border/40"
+              className="p-2 rounded-lg bg-transparent hover:bg-muted transition-all duration-300 text-foreground cursor-pointer flex items-center justify-center w-9 h-9 border border-border"
               aria-label="Toggle language"
             >
               <Globe className="w-4 h-4 text-foreground/75" />

@@ -77,16 +77,14 @@ const About = () => {
         </div>
 
         <div ref={imageRef} className="relative">
-          <div className="aspect-square rounded-2xl overflow-hidden bg-muted relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 group-hover:scale-105 transition-transform duration-700" />
+          <div className="aspect-[4/5] rounded-sm overflow-hidden bg-muted relative group border border-border">
             <img
               src="/mukarram.jpg"
               alt="Mukarram"
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="absolute -bottom-6 -end-6 w-24 h-24 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
-          <div className="absolute -top-6 -start-6 w-32 h-32 bg-secondary/20 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-4 -end-4 w-full h-full border border-primary -z-10 pointer-events-none" />
         </div>
       </div>
     </SectionWrapper>

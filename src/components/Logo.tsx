@@ -23,17 +23,17 @@ const Logo: React.FC<LogoProps> = ({ size = 40, className = '' }) => {
           x2="100%"
           y2="100%"
         >
-          <stop offset="0%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#7c3aed" />
+          <stop offset="0%" stopColor="#98e209" />
+          <stop offset="100%" stopColor="#4e8100" />
         </linearGradient>
         <linearGradient id="mGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#06b6d4" />
-          <stop offset="50%" stopColor="#3b82f6" />
-          <stop offset="100%" stopColor="#8b5cf6" />
+          <stop offset="0%" stopColor="#98e209" />
+          <stop offset="50%" stopColor="#5f9b00" />
+          <stop offset="100%" stopColor="#263d00" />
         </linearGradient>
         <linearGradient id="slashGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#ec4899" />
-          <stop offset="100%" stopColor="#a855f7" />
+          <stop offset="0%" stopColor="#171717" />
+          <stop offset="100%" stopColor="#98e209" />
         </linearGradient>
         <filter id="glow">
           <feGaussianBlur stdDeviation="2" result="coloredBlur" />

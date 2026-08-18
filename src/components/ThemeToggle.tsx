@@ -35,7 +35,7 @@ const ThemeToggle: React.FC = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2.5 rounded-full bg-muted hover:bg-accent transition-colors"
+      className="p-2 rounded-md border border-border bg-transparent hover:bg-muted transition-colors"
       aria-label="Toggle theme"
     >
       {isDark ? (
