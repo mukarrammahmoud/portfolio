@@ -194,13 +194,13 @@ const Projects = () => {
           const rect = card.getBoundingClientRect()
           const x = mouse.clientX - rect.left
           const y = mouse.clientY - rect.top
-          const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -7
-          const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 7
+          const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -3
+          const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 3
 
           gsap.to(inner, {
             rotateX,
             rotateY,
-            y: -6,
+            y: -4,
             duration: 0.45,
             ease: 'power2.out',
             overwrite: true,

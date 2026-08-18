@@ -201,3 +201,11 @@ form.bg-card {
 button, a, input, textarea {
   border-radius: 0.625rem;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card-inner,
+  .hero-btn {
+    transform: none !important;
+    transition: none !important;
+  }
+}

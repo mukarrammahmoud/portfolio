@@ -155,6 +155,8 @@ const Hero = () => {
 
       if (!contextSafe) return
 
+      if (reduced) return
+
       const onButtonClick = contextSafe((e: Event) => {
         const btn = e.currentTarget as HTMLElement
         gsap.fromTo(
@@ -164,13 +166,30 @@ const Hero = () => {
         )
       })
 
+      const onButtonMove = contextSafe((e: Event) => {
+        const mouse = e as MouseEvent
+        const button = e.currentTarget as HTMLElement
+        const rect = button.getBoundingClientRect()
+        const x = (mouse.clientX - (rect.left + rect.width / 2)) * 0.12
+        const y = (mouse.clientY - (rect.top + rect.height / 2)) * 0.12
+        gsap.to(button, { x, y, duration: 0.3, ease: 'power2.out', overwrite: true })
+      })
+
+      const onButtonLeave = contextSafe((e: Event) => {
+        gsap.to(e.currentTarget, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)', overwrite: true })
+      })
+
       container.current?.querySelectorAll('.hero-btn').forEach((btn) => {
         btn.addEventListener('click', onButtonClick)
+        btn.addEventListener('mousemove', onButtonMove)
+        btn.addEventListener('mouseleave', onButtonLeave)
       })
 
       return () => {
         container.current?.querySelectorAll('.hero-btn').forEach((btn) => {
           btn.removeEventListener('click', onButtonClick)
+          btn.removeEventListener('mousemove', onButtonMove)
+          btn.removeEventListener('mouseleave', onButtonLeave)
         })
       }
     },
